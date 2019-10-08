@@ -6,6 +6,9 @@ public class HardDiskDrive {
 	int unitNumber;                 // Número de unidad
 	String label;	                // Etiqueta
 	
+private static final int MIN_CAPACITY = 1;
+private static final int CAPACITY_MULTIPLE = 40;
+
 	/* 
 	 * HardDiskDrive[1]
 	 * Crear constructor y validar lo siguiente:
@@ -17,7 +20,17 @@ public class HardDiskDrive {
 	public HardDiskDrive(long capacityGB, int unitNumber){
 		this.unitNumber = unitNumber;
 		// Escribe tu código {
+		if ( capacityGB < MIN_CAPACITY) { 
+		this.capacityGB = MIN_CAPACITY;
+		System.err.printl("La capacidad minimas es" + MIN_CAPACITY); 
 		
+		if (capacityGB % CAPACITY_MULTIPLE != 0) ) {
+		System.err.printl("La capacidad debe ser Mmultiplo de" + CAPACITY_MULTIPLE); 
+
+		}
+
+StringBuilder sb = new StringBuilder ();
+this.label = sb.append ( "Hard Disk"). append(unitNumber).toString(); 
 		// }
 	}
 	
@@ -32,6 +45,10 @@ public class HardDiskDrive {
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
 		// Escribe tu código {
+sb.append ("Etiqueta :").append(this.label).append("\n"); 
+sb.append ("Unidad   :").append(this.unitNumber).append("\n");
+sb.append ("Capacidad:").append(this.capacityGB).append("\n");
+
 
 		// }
 		return sb.toString();
