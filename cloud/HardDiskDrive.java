@@ -1,5 +1,7 @@
 package cloud;
 
+import cloud.exceptions.CloudGenericException;
+
 public class HardDiskDrive {
 	String id;						// Identificador único
 	long capacityGB;				// Capacidad en GB
@@ -17,12 +19,11 @@ public class HardDiskDrive {
 	 * Reemplazar concatenación de strings 
 	 * usando "+" por StringBuilder en Constructores 
 	 */
-	public HardDiskDrive(long capacityGB, int unitNumber){
+	public HardDiskDrive(long capacityGB, int unitNumber) throws CloudGenericException {
 		this.unitNumber = unitNumber;
 		// Escribe tu código {
 		if ( capacityGB < MIN_CAPACITY ) {
-			capacityGB = MIN_CAPACITY;
-			System.err.println("La capacidad minima es " + MIN_CAPACITY);
+			throw new CloudGenericException("La capacidad minima es " + MIN_CAPACITY);
 		}
 		this.capacityGB = capacityGB;
 

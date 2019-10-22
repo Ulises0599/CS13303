@@ -19,14 +19,16 @@ public class VirtualMachine {
 	 * tipo NetworkCard a un HashMap de tipo 
 	 * HashMap<Integer, NetworkCard> 
 	 */
-	HashMap<Integer, NetworkCard> nics;  // Tarjetas de Red Virtuales
+	// Tarjetas de Red Virtuales
+	HashMap<Integer, NetworkCard> nics = new HashMap<Integer, NetworkCard>();
 
 	/*
 	 * VirtualMachine[10]
 	 * Agregar variable hdds de tipo 
 	 * HashMap<Integer, HardDiskDrive>
 	 */
-	HashMap<Integer, HardDiskDrive> hdds;            // Discos duros virtuales
+	// Discos duros virtuales
+	HashMap<Integer, HardDiskDrive> hdds = new HashMap<Integer, HardDiskDrive>();
 
 	private static final int MIN_CPUS = 1;
 	private static final long MIN_MEMORY = 1024;

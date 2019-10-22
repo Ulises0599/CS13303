@@ -1,69 +1,54 @@
 package cloud;
 
-import java.util.HashMap;
+import cloud.exceptions.CloudGenericException;
 
 public class Main {
+
+	public static void createVM(int memory, int cpu, int diskCapacity, int suffix, String os)
+			throws CloudGenericException
+	{
+		String name = "VirtualMachine_" + suffix;
+		VirtualMachine vm = new VirtualMachine(cpu, memory, name, os);
+	
+		NetworkCard nic1 = new NetworkCard("133.33.33.33", 2, 1000);
+		vm.addNIC(nic1);
+
+		HardDiskDrive hdd1 = new HardDiskDrive(diskCapacity, 1);
+		vm.addHDD(hdd1);
+	
+		// 5. Imprimiendo variables de VM1
+		System.out.println(vm.toString());
+
+		// 6. Imprimiendo variables de VM1.nics
+		vm.nics.forEach((id, nic) -> {
+			System.out.println(nic.toString());
+		});
+		// }
+		
+		// 7. Imprimiendo variables de VM1.hdds
+		vm.hdds.forEach((id, hdd) -> {
+			System.out.println(hdd.toString());
+		});
+
+		return;
+	}
+
 	// Método principal
 	public static void main(String[] args) {
+		int[] memories = {0, 1024, 2048, 4096};
+		int[] cpus = {2, 1, 0, 2};
+		int[] disks = {10, 0, 40, 10};
+		String[] os = {"Ubuntu", "CentOS", "Windows", "OSX"};
 
-			// 1. Crear objeto vm1 basado en VirtualMachine
-			// Escribe tu código {
-			VirtualMachine vm1 = new VirtualMachine(1, 1024, "Virtual1", "Ubuntu");
-			// }
-			NetworkCard nic1 = new NetworkCard("122.22.22.22", 1);
-			NetworkCard nic2 = new NetworkCard("133.33.33.33", 2, 1000);
+		try {
+			for (int i = 0; i < 4; i++) {
+				Main.createVM(memories[i], cpus[i], disks[i], i, os[i]);
+			}		
+		} catch(Exception e) {
+			System.err.println("Hubo un error: " + e.toString());
+			return;
+		}
 
-			// 2. Crear un HashMap<Integer, NetworkCard> para agregar los 
-			//    objetos nic1 y nic2 creados previamente
-			// Escribe tu código {
-			HashMap<Integer, NetworkCard> nics = new HashMap<Integer, NetworkCard>();
-			nics.put(nic1.unitNumber, nic1);
-			nics.put(nic2.unitNumber, nic2);
-			// }
-			
-			HardDiskDrive hdd1 = new HardDiskDrive(100, 1);
-			HardDiskDrive hdd2 = new HardDiskDrive(120, 2);
-			
-			// 3. Crear un HashMap<Integer, HardDiskDrive> para agregar los 
-			//    objetos hdd1 y hdd1 creados previamente
-			// Escribe tu código {
-			HashMap<Integer, HardDiskDrive> hdds = new HashMap<Integer, HardDiskDrive>();
-			hdds.put(hdd1.unitNumber, hdd1);
-			hdds.put(hdd2.unitNumber, hdd2);
-			// }		
-			
-			// 4. Asignar nics y hdds a VirtualMachine.nics y
-			// VirtualMachine.hdds respectivamente
-			// Escribe tu código {
-			vm1.addNICs(nics);
-			vm1.addHDDs(hdds);
-			// }
-
-			// 5. Imprimiendo variables de VM1
-			System.out.println("Resumen: ");
-			System.out.println(vm1.toString());
-
-			// 6. Imprimiendo variables de VM1.nics
-			System.out.println("Detallado NICs: ");
-			// Escribe tu código {
-			vm1.nics.forEach((id, nic) -> {
-				System.out.println(nic.toString());
-			});
-			// }
-			
-			// 7. Imprimiendo variables de VM1.hdds
-			System.out.println("Detallado HDDs: ");
-			// Escribe tu código {
-			vm1.hdds.forEach((id, hdd) -> {
-				System.out.println(hdd.toString());
-			});
-			/*
-			for (vm1.hdds.entrySet() : Entry hdd) {
-				hdd.toString();
-			}
-			*/
-			// }
 	}
 	
-
 }
