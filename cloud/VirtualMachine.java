@@ -1,5 +1,6 @@
 package cloud;
 
+import cloud.exceptions.CloudGenericException;
 
 import java.util.HashMap;
 
@@ -33,11 +34,6 @@ public class VirtualMachine {
 	private static final int MIN_CPUS = 1;
 	private static final long MIN_MEMORY = 1024;
 	private static final int MIN_NAME_LEN = 5; 
-
-
-private static final int MIN_CPUS = 1;
-private static final long MIN_MEMORY = 1024;
-private static final int MIN_NAME_LEN = 5;
 	/*
 	 * VirtualMachine[6]
 	 * Constructor debe validar lo siguiente:
@@ -46,23 +42,26 @@ private static final int MIN_NAME_LEN = 5;
 	 * - name(String) mayor a 5 caracteres
 	 * - guestOS(String) mayor a 5 caracteres
 	 */
-	VirtualMachine(int cpuCount, long memoryGB, String guestOS){
+	VirtualMachine(int cpuCount, long memoryGB, String guestOS )throws CloudGenericException {
 		// Escribe tu código {
 		if (cpuCount < MIN_CPUS) {
 			cpuCount = MIN_CPUS;
-			System.err.println("La cantidad minima de CPUs es " + MIN_CPUS);
+			throw new CloudGenericException("La cantidad minima de CPUs es " + MIN_CPUS);
 		}
 		this.cpuCount = cpuCount;
 
-		if (memoryGB < MIN_MEMORY && memoryGB % MIN_MEMORY != 0) {
+		if (memoryGB < MIN_MEMORY) {
 			memoryGB = MIN_MEMORY;
-			System.err.println("La cantidad minima de memoria es " + MIN_MEMORY);
-			System.err.println("La cantidad de memoria debe ser multiplo de  " + MIN_MEMORY);
+			throw new CloudGenericException("La cantidad minima de memoria es " + MIN_MEMORY);
 		}
 		this.memoryGB = memoryGB;
 
+		if (memoryGB % MIN_MEMORY != 0) {
+			throw new CloudGenericException("La cantidad de memoria debe ser multiplo de  " + MIN_MEMORY);
+		}
+
 		if (guestOS.length() < MIN_NAME_LEN) {
-			System.err.println("La longitud minima del Guest OS es " + MIN_NAME_LEN);
+			throw new CloudGenericException("La longitud minima del Guest OS es " + MIN_NAME_LEN);
 		}
 
 		this.guestOS = guestOS;
@@ -70,27 +69,30 @@ private static final int MIN_NAME_LEN = 5;
 		this.id = CloudUtil.getUUID();
 	}
 	
-	VirtualMachine(int cpuCount, long memoryGB, String name, String guestOS){
+	VirtualMachine(int cpuCount, long memoryGB, String name, String guestOS)throws CloudGenericException {
 		// Escribe tu código {
 		if (cpuCount < MIN_CPUS) {
 			cpuCount = MIN_CPUS;
-			System.err.println("La cantidad minima de CPUs es " + MIN_CPUS);
+			throw new CloudGenericException("La cantidad minima de CPUs es " + MIN_CPUS);
 		}
 		this.cpuCount = cpuCount;
 
-		if (memoryGB < MIN_MEMORY && memoryGB % MIN_MEMORY != 0) {
+		if (memoryGB < MIN_MEMORY) {
 			memoryGB = MIN_MEMORY;
-			System.err.println("La cantidad minima de memoria es " + MIN_MEMORY);
-			System.err.println("La cantidad de memoria debe ser multiplo de  " + MIN_MEMORY);
+			throw new CloudGenericException("La cantidad minima de memoria es " + MIN_MEMORY);
 		}
 		this.memoryGB = memoryGB;
 
+      	if (memoryGB % MIN_MEMORY != 0) {
+		throw new CloudGenericException("La cantidad de memoria debe ser multiplo de  " + MIN_MEMORY);
+		  }
+
 		if (guestOS.length() < MIN_NAME_LEN) {
-			System.err.println("La longitud minima del Guest OS es " + MIN_NAME_LEN);
+			throw new CloudGenericException("La longitud minima del Guest OS es " + MIN_NAME_LEN);
 		}
 
 		if (name.length() < MIN_NAME_LEN) {
-			System.err.println("La longitud minima del nombre es " + MIN_NAME_LEN);
+			throw new CloudGenericException("La longitud minima del nombre es " + MIN_NAME_LEN);
 		}
 
 		this.guestOS = guestOS;
